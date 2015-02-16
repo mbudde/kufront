@@ -1,0 +1,48 @@
+% University of Copenhagen frontpage templates following the design guide at
+% http://designguide.ku.dk.
+% Loosely based on the ku-forside package http://www.math.ku.dk/~m00cha/
+\ProvidesPackage{kufront}[2015/02/16 UCPH frontpage]
+
+\RequirePackage{tikz}
+\RequirePackage{setspace}
+
+\def\ku@lang{da}
+\DeclareOption{en}{ \def\ku@lang{en} }
+\DeclareOption{da}{ \def\ku@lang{da} }
+
+\def\ku@color{farve}
+\DeclareOption{farve}{ \def\ku@color{farve} }
+\DeclareOption{sh}{ \def\ku@color{sh} }
+
+\newif\if@showgrid\@showgridfalse
+\DeclareOption{grid}{ \@showgridtrue }
+
+\ProcessOptions\relax
+
+
+\def\ku@project{}
+\def\ku@supervisor{}
+
+\newcommand{\project}[1]{\def\ku@project{#1}}
+\newcommand{\supervisor}[1]{\def\ku@supervisor{#1}}
+
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \begin{tikzpicture}[
+            remember picture, overlay, shift={(current page.north west)},
+            inner sep=0pt, anchor=north west]
+            \node at (0, 0) {\includegraphics{../natbio-\ku@color}};
+            \if@showgrid
+            \node at (0, 0) {\includegraphics{../natbio-\ku@color-grid}};
+            \fi
+            \node at (15mm, -11mm) {\includegraphics{../natbio-\ku@lang}};
+            \node at (15mm, -9cm) {\bfseries\LARGE\ku@project};
+            \node at (15mm, -10.2cm) {\large\@author};
+            \node[text width=18cm] at (15mm, -11.7cm) {\spaceskip 0.7em \begin{spacing}{1.15} \Huge\@title \end{spacing}};
+            \node at (15mm, -26.5cm) {\large\ku@supervisor};
+            \node at (15mm, -27.5cm) {\large\@date};
+        \end{tikzpicture}
+    \end{titlepage}
+}
+
+\endinput
