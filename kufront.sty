@@ -3,46 +3,75 @@
 % Loosely based on the ku-forside package http://www.math.ku.dk/~m00cha/
 \ProvidesPackage{kufront}[2015/02/16 UCPH frontpage]
 
+\RequirePackage{kvoptions}
+\RequirePackage{ifthen}
 \RequirePackage{tikz}
 \RequirePackage{setspace}
 
-\def\ku@lang{da}
-\DeclareOption{en}{ \def\ku@lang{en} }
-\DeclareOption{da}{ \def\ku@lang{da} }
+\DeclareStringOption[natbio]{faculty}
+\DeclareStringOption[da]{lang}
+\DeclareBoolOption{bw}
+\DeclareComplementaryOption{color}{bw}
+\DeclareBoolOption{grid}
+\DeclareBoolOption{usefont}
+\DeclareStringOption[\csname kufront@faculty@\kufront@lang\kufront@faculty\endcsname]{nametext}
+\DeclareStringOption{nametextsnd}
+\DeclareStringOption[\csname kufront@university@\kufront@lang\endcsname]{subnametext}
 
-\def\ku@color{farve}
-\DeclareOption{farve}{ \def\ku@color{farve} }
-\DeclareOption{sh}{ \def\ku@color{sh} }
+\ProcessKeyvalOptions*
 
-\newif\if@showgrid\@showgridfalse
-\DeclareOption{grid}{ \@showgridtrue }
+\newcommand*{\kufront@university@en}{university of copenhagen}
+\newcommand*{\kufront@university@da}{københavns universitet}
+\newcommand*{\kufront@faculty@ennatbio}{faculty of science}
+\newcommand*{\kufront@faculty@danatbio}{det natur- og biovidenskabelige fakultet}
 
-\ProcessOptions\relax
+\ifthenelse{\boolean{kufront@usefont}}{\RequirePackage{fontspec}}{}
 
+\ifthenelse{\boolean{kufront@bw}}%
+    {\newcommand*{\kufront@variant}{sh}}%
+    {\newcommand*{\kufront@variant}{farve}}
 
-\def\ku@project{}
-\def\ku@supervisor{}
+\newcommand*{\kufront@project}{}
+\newcommand*{\kufront@supervisor}{}
 
-\newcommand{\project}[1]{\def\ku@project{#1}}
-\newcommand{\supervisor}[1]{\def\ku@supervisor{#1}}
+\newcommand*{\project}[1]{\renewcommand*{\kufront@project}{#1}}
+\newcommand*{\supervisor}[1]{\renewcommand*{\kufront@supervisor}{#1}}
+
+\ifthenelse{\boolean{kufront@usefont}}{%
+    \newfontface\kunamefont{AGaramond RegularSC}[
+        Color=666666FF,
+        LetterSpace=13,
+        WordSpace=2,
+    ]}{}
 
 \renewcommand{\maketitle}{
     \begin{titlepage}
         \begin{tikzpicture}[
             remember picture, overlay, shift={(current page.north west)},
             inner sep=0pt, anchor=north west]
-            \node at (0, 0) {\includegraphics{../natbio-\ku@color}};
-            \if@showgrid
-            \node at (0, 0) {\includegraphics{../natbio-\ku@color-grid}};
+            \node at (0, 0) {\includegraphics{../\kufront@faculty-\kufront@variant}};
+            \ifkufront@grid
+                \node at (0, 0) {\includegraphics{../\kufront@faculty-\kufront@variant-grid}};
             \fi
-            \node at (15mm, -11mm) {\includegraphics{../natbio-\ku@lang}};
-            \node at (15mm, -9cm) {\bfseries\LARGE\ku@project};
+            \ifkufront@usefont
+                \node at (15mm, -11mm) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametext};
+                \ifthenelse{\equal{\kufront@nametextsnd}{}}{
+                    \node at (15mm, -11mm-17pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
+                }{
+                    \node at (15mm, -11mm-16.5pt) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametextsnd};
+                    \node at (15mm, -11mm-34pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
+                }
+            \else
+                \node at (15mm, -11mm) {\includegraphics{../\kufront@faculty-\kufront@lang}};
+            \fi
+            \node at (15mm, -9cm) {\bfseries\LARGE\kufront@project};
             \node at (15mm, -10.2cm) {\large\@author};
             \node[text width=18cm] at (15mm, -11.7cm) {\spaceskip 0.7em \begin{spacing}{1.15} \Huge\@title \end{spacing}};
-            \node at (15mm, -26.5cm) {\large\ku@supervisor};
+            \node at (15mm, -26.5cm) {\large\kufront@supervisor};
             \node at (15mm, -27.5cm) {\large\@date};
         \end{tikzpicture}
     \end{titlepage}
 }
+
 
 \endinput
