@@ -67,10 +67,10 @@
         \else
             \node at (15mm, -11mm) {\includegraphics{\kufront@faculty-\kufront@lang}};
         \fi
-        \node[font=\bfseries\LARGE] at (15mm, -9cm) {\kufront@project};
-        \node[text width=18cm,font=\large] at (15mm, -10.2cm) {\@author};
-        \node[text width=18cm,font=\Huge\setstretch{1.2}] (title) at (15mm, -13cm) {\@title};
-        \node[text width=18cm,yshift=-.6cm,font=\huge] at (title.south west) {\kufront@subtitle};
+        \node[font=\bfseries\huge] at (15mm, -9cm) {\kufront@project};
+        \node[text width=18cm, font=\large] at (15mm, -10.2cm) {\@author};
+        \node[text width=18cm, font=\fontsize{26pt}{3.2em}\selectfont] (title) at (15mm, -12.5cm) {\@title};
+        \node[text width=18cm, yshift=-.6cm, font=\huge] at (title.south west) {\kufront@subtitle};
         \node[font=\large] at (15mm, -26.5cm) {\kufront@supervisor};
         \node[font=\large] at (15mm, -27.5cm) {\@date};
     \end{tikzpicture}
