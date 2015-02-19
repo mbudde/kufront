@@ -28,7 +28,9 @@ Todo:
 \supervisor{Supervisor: Some supervisor}
 
 \begin{document}
+\begin{titlepage}
 \maketitle
+\end{titlepage}
 
 \section{Here we go}
 Bla bla bla \ldots
@@ -37,7 +39,14 @@ Bla bla bla \ldots
 ```
 [Resulting PDF](https://github.com/mbudde/kufront/raw/master/example.pdf)
 
-Package options:
+## Requirements
+
+The package requires the `tikz`, `setspace`, `kvoptions` and `ifthen` packages.
+If using the `memoir` document class, you need to add the command
+`\DisemulatePackage{setspace}` before loading this package. The page size must
+also be A4.
+
+## Package options
 
 <dl>
 <dt><code>lang = ⟨langcode⟩</code> (default <code>da</code>)</dt>
@@ -49,8 +58,8 @@ Package options:
 <dt><code>bw</code>, <code>color</code> (default <code>color</code>)</dt>
 <dd>Choose between color and black/white version.</dd>
 
-<dt><code>grid</code> (default <code>false</code>)</dt>
-<dd>Enable logo grid.</dd>
+<dt><code>grid = ⟨variant⟩</code> (default off)</dt>
+<dd>Enable logo grid. Variants available are: <code>light</code> (light color), <code>medium</code>, <code>dark</code> and <code>full</code> (full saturation). If no variant is given, <code>medium</code> is used.</dd>
 
 <dt><code>usefont</code> (default <code>false</code>)</dt>
 <dd>Use Adobe Garamond Pro small caps font to draw text instead of using premade PDF. Allows custom text in the header. Requires that the <code>fontspec</code> package is supported and that the font "AGaramond RegularSC" (Adobe Garamond Pro Small Caps) is available.</dd>
@@ -63,4 +72,18 @@ Package options:
 
 <dt><code>subnametext</code> (default: name of university)</dt>
 <dd>Smaller line of text in the header. Requires <code>usefont</code> to be enabled.</dd>
+</dl>
+
+## Package commands
+
+In addition to the standard `\author`, `\title` and `\date` commands, the following are also available:
+<dl>
+<dt><code>\subtitle{⟨text⟩}</code></dt>
+<dd>Set the subtitle.</dd>
+
+<dt><code>\project{⟨text⟩}</code></dt>
+<dd>Set the project (e.g. 'Master's Thesis').</dd>
+
+<dt><code>\supervisor{⟨text⟩}</code></dt>
+<dd>Set text describing supervisors.</dd>
 </dl>

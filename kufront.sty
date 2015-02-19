@@ -5,14 +5,16 @@
 
 \RequirePackage{kvoptions}
 \RequirePackage{ifthen}
-\RequirePackage{tikz}
 \RequirePackage{setspace}
+\RequirePackage{tikz}
+
+\usetikzlibrary{positioning}
 
 \DeclareStringOption[natbio]{faculty}
 \DeclareStringOption[da]{lang}
 \DeclareBoolOption{bw}
 \DeclareComplementaryOption{color}{bw}
-\DeclareBoolOption{grid}
+\DeclareStringOption{grid}[medium]
 \DeclareBoolOption{usefont}
 \DeclareStringOption[\csname kufront@faculty@\kufront@lang\kufront@faculty\endcsname]{nametext}
 \DeclareStringOption{nametextsnd}
@@ -31,9 +33,11 @@
     {\newcommand*{\kufront@variant}{sh}}%
     {\newcommand*{\kufront@variant}{farve}}
 
+\newcommand*{\kufront@subtitle}{}
 \newcommand*{\kufront@project}{}
 \newcommand*{\kufront@supervisor}{}
 
+\newcommand*{\subtitle}[1]{\renewcommand*{\kufront@subtitle}{#1}}
 \newcommand*{\project}[1]{\renewcommand*{\kufront@project}{#1}}
 \newcommand*{\supervisor}[1]{\renewcommand*{\kufront@supervisor}{#1}}
 
@@ -45,33 +49,33 @@
     ]}{}
 
 \renewcommand{\maketitle}{
-    \begin{titlepage}
-        \begin{tikzpicture}[
-            remember picture, overlay, shift={(current page.north west)},
-            inner sep=0pt, anchor=north west]
-            \node at (0, 0) {\includegraphics{../\kufront@faculty-\kufront@variant}};
-            \ifkufront@grid
-                \node at (0, 0) {\includegraphics{../\kufront@faculty-\kufront@variant-grid}};
-            \fi
-            \ifkufront@usefont
-                \node at (15mm, -11mm) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametext};
-                \ifthenelse{\equal{\kufront@nametextsnd}{}}{
-                    \node at (15mm, -11mm-17pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
-                }{
-                    \node at (15mm, -11mm-16.5pt) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametextsnd};
-                    \node at (15mm, -11mm-34pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
-                }
-            \else
-                \node at (15mm, -11mm) {\includegraphics{../\kufront@faculty-\kufront@lang}};
-            \fi
-            \node at (15mm, -9cm) {\bfseries\LARGE\kufront@project};
-            \node at (15mm, -10.2cm) {\large\@author};
-            \node[text width=18cm] at (15mm, -11.7cm) {\spaceskip 0.7em \begin{spacing}{1.15} \Huge\@title \end{spacing}};
-            \node at (15mm, -26.5cm) {\large\kufront@supervisor};
-            \node at (15mm, -27.5cm) {\large\@date};
-        \end{tikzpicture}
-    \end{titlepage}
+    \begin{tikzpicture}[
+        remember picture, overlay, shift={(current page.north west)},
+        inner sep=0pt, anchor=north west]
+        \node at (0, 0) {\includegraphics{\kufront@faculty-\kufront@variant}};
+        \ifthenelse{\equal{\kufront@grid}{}} {} {
+            \node at (0, 0) {\includegraphics{\kufront@faculty-\kufront@variant-grid-\kufront@grid}};
+        }
+        \ifkufront@usefont
+            \node at (15mm, -11mm) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametext};
+            \ifthenelse{\equal{\kufront@nametextsnd}{}}{
+                \node at (15mm, -11mm-17pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
+            }{
+                \node at (15mm, -11mm-16.5pt) {\fontsize{18pt}{1em}\selectfont\kunamefont \kufront@nametextsnd};
+                \node at (15mm, -11mm-34pt) {\fontsize{15pt}{1em}\selectfont\kunamefont \kufront@subnametext};
+            }
+        \else
+            \node at (15mm, -11mm) {\includegraphics{../\kufront@faculty-\kufront@lang}};
+        \fi
+        \node[font=\bfseries\LARGE] at (15mm, -9cm) {\kufront@project};
+        \node[text width=18cm,font=\large] at (15mm, -10.2cm) {\@author};
+        \node[text width=18cm,font=\Huge\setstretch{1.2}] (title) at (15mm, -13cm) {\@title};
+        \node[text width=18cm,yshift=-.6cm,font=\huge] at (title.south west) {\kufront@subtitle};
+        \node[font=\large] at (15mm, -26.5cm) {\kufront@supervisor};
+        \node[font=\large] at (15mm, -27.5cm) {\@date};
+    \end{tikzpicture}
 }
+
 
 
 \endinput
