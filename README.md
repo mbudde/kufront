@@ -15,6 +15,10 @@ Todo:
 
  - So far only has the logo for the Faculty of Science.
 
+## Installation
+
+Place `kufront.sty` and all the PDF files in the same directory as your document.
+
 ## Usage
 
 ```tex
