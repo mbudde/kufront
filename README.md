@@ -86,4 +86,8 @@ In addition to the standard `\author`, `\title` and `\date` commands, the follow
 
 <dt><code>\supervisor{⟨text⟩}</code></dt>
 <dd>Set text describing supervisors.</dd>
+
+<dt><code>\kufrontfont</code></dt>
+<dd>Redefine this command to change the font used on the front page. For example if you want to use a sans-serif font: <code>\renewcommand{\kufrontfont}{\sffamily}</code></dd>
 </dl>
+
