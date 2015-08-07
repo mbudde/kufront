@@ -48,6 +48,8 @@
         WordSpace=2,
     ]}{}
 
+\newcommand*{\kufrontfont}{}
+
 \renewcommand{\maketitle}{
     \begin{tikzpicture}[
         remember picture, overlay, shift={(current page.north west)},
@@ -67,12 +69,12 @@
         \else
             \node at (15mm, -11mm) {\includegraphics{\kufront@faculty-\kufront@lang}};
         \fi
-        \node[font=\bfseries\huge] at (15mm, -9cm) {\kufront@project};
-        \node[text width=18cm, font=\large] at (15mm, -10.2cm) {\@author};
-        \node[text width=18cm, font=\fontsize{26pt}{3.2em}\selectfont] (title) at (15mm, -12.5cm) {\@title};
-        \node[text width=18cm, yshift=-.6cm, font=\huge] at (title.south west) {\kufront@subtitle};
-        \node[font=\large] at (15mm, -26.5cm) {\kufront@supervisor};
-        \node[font=\large] at (15mm, -27.5cm) {\@date};
+        \node[font=\bfseries\huge\kufrontfont] at (15mm, -9cm) {\kufront@project};
+        \node[text width=18cm, font=\large\kufrontfont] at (15mm, -10.2cm) {\@author};
+        \node[text width=18cm, font=\fontsize{26pt}{3.2em}\selectfont\kufrontfont] (title) at (15mm, -12.5cm) {\@title};
+        \node[text width=18cm, font=\huge\kufrontfont, yshift=-.6cm] at (title.south west) {\kufront@subtitle};
+        \node[text width=18cm, font=\large\kufrontfont, anchor=south west] (date) at (15mm, -27.9cm) {\@date};
+        \node[text width=18cm, font=\large\kufrontfont, anchor=south west,yshift=6mm] at (date.north west) {\kufront@supervisor};
     \end{tikzpicture}
 }
 
