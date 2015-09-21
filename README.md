@@ -25,19 +25,20 @@ Place `kufront.sty` and all the PDF files in the same directory as your document
 \documentclass[a4paper]{article}
 \usepackage[lang=en,grid]{kufront}
 
-\title{Some title}
-\author{Some author}
-\date{some. date 2015}
-\project{A project}
-\supervisor{Supervisor: Some supervisor}
+% Use sans-serif font
+\renewcommand{\kufrontfont}{\sffamily}
+
+\title{Studies on the Electron Theory of Metals}
+\author{\Large Niels Bohr \quad {\ttfamily\large nbx123@alumni.ku.dk}}
+\date{May 1911}
+\project{\mdseries\LARGE PhD Thesis}
+\supervisor{Supervisor: Christian Christiansen}
 
 \begin{document}
+
 \begin{titlepage}
 \maketitle
 \end{titlepage}
-
-\section{Here we go}
-Bla bla bla \ldots
 
 \end{document}
 ```
