@@ -1,4 +1,4 @@
-# KU frontpage in LaTeX
+# KU Frontpage in LaTeX
 
 Provides a frontpage with University of Copenhagen logo following the
 guidelines in the official [design guide](http://designguide.ku.dk). This
@@ -17,7 +17,7 @@ Todo:
 
 ## Installation
 
-Place `kufront.sty` and all the PDF files in the same directory as your document.
+[Download the ZIP](https://github.com/mbudde/kufront/archive/master.zip) and extract `kufront.sty` and all the PDF files to the same directory as your document.
 
 ## Usage
 
