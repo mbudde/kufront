@@ -19,6 +19,13 @@ Todo:
 
 [Download the ZIP](https://github.com/mbudde/kufront/archive/master.zip) and extract `kufront.sty` and all the PDF files to the same directory as your document.
 
+## Permanent Linux Installation
+If you want to permanently install the package on linux follow these instructions:
+ - ```$ mkdir -p ~/texmf/tex/latex/local/```
+ - ```$ cd ~/texmf/tex/latex/local/```
+ - ```$ git clone git@github.com:mbudde/kufront.git```
+ - ```$ texhash```
+
 ## Usage
 
 ```tex
